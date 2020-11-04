@@ -205,6 +205,12 @@ TOKEN_SENT_TO_EMAIL_OF_USER = {"message": "Token sent to the user's email."}
 EMAIL_VERIFICATION_MESSAGE = {
     "message": "Check your email, a new verification" " email was sent."
 }
+PASSWORD_RESET_MAIL_MESSAGE = {
+    "message": "Check your email, a new password reset link was sent."
+}
+RESET_PASSWORD_TOKEN_HAS_EXPIRED = {
+    "message": "Either Token has expired or Token is Invalid! Please, resend the link again to your valid email!"
+}
 
 # Success messages
 TASK_WAS_ALREADY_ACHIEVED = {"message": "Task was already achieved."}

@@ -19,6 +19,7 @@ from app.api.models.mentorship_relation import (
 )
 from app.api.dao.mentorship_relation import MentorshipRelationDAO
 from app.utils.validation_utils import is_email_valid
+import config
 
 
 class UserDAO:
@@ -399,6 +400,18 @@ class UserDAO:
             tasks += relation.tasks_list.tasks
         achievements = [task for task in tasks if task.get("is_done")]
         return achievements
+
+    @staticmethod
+    def reset_password_token(token: str, expiration=config.BaseConfig.RESET_LINK_THRESHOLD):
+        from itsdangerous import URLSafeTimedSerializer, BadSignature
+        from run import application
+        password_reset_serializer = URLSafeTimedSerializer(application.config['SECRET_KEY'])
+        try:
+            email = password_reset_serializer.loads(
+            token, salt=application.config["SECURITY_RESET_SALT	"], max_age=expiration)
+        except BadSignature:
+            return False
+        return email
 
     @staticmethod
     def get_user_statistics(user_id: int):

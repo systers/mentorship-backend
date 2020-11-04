@@ -12,10 +12,11 @@ from flask_restx import Resource, marshal, Namespace
 
 from app import messages
 from app.api.validations.user import *
-from app.api.email_utils import send_email_verification_message
+from app.api.email_utils import send_email_verification_message, send_email_reset_password_message
 from app.api.models.user import *
 from app.api.dao.user import UserDAO
 from app.api.resources.common import auth_header_parser
+from app.utils.validation_utils import is_email_valid
 
 users_ns = Namespace("Users", description="Operations related to users")
 add_models_to_namespace(users_ns)
@@ -507,3 +508,94 @@ class UserDashboard(Resource):
             return messages.USER_NOT_FOUND, HTTPStatus.NOT_FOUND
 
         return dashboard, HTTPStatus.OK
+
+@users_ns.route("user/forgot_password")
+class ForgotPassword(Resource):
+    @classmethod
+    @users_ns.doc("forgot password")
+    @users_ns.response(HTTPStatus.OK, f"{messages.PASSWORD_RESET_MAIL_MESSAGE}")
+    @users_ns.response(HTTPStatus.BAD_REQUEST, f"{messages.EMAIL_FIELD_IS_MISSING}\n{messages.EMAIL_INPUT_BY_USER_IS_INVALID}")
+    @users_ns.response(HTTPStatus.FORBIDDEN, f"{messages.USER_HAS_NOT_VERIFIED_EMAIL_BEFORE_LOGIN}")
+    @users_ns.response(HTTPStatus.NOT_FOUND, f"{messages.USER_IS_NOT_REGISTERED_IN_THE_SYSTEM}")
+    @users_ns.expect(forgot_password_change_request_data_model, validate=True)
+    def post(self):
+        """ Updates User's password by sending reset link to email
+ 
+        Args: 
+          email: Verified email of the user
+ 
+        Return:
+          token: a token link/reset link will be shared on verified mail of user
+        """
+ 
+        data = request.json
+ 
+        if not data["email"]:
+            return messages.EMAIL_FIELD_IS_MISSING, HTTPStatus.BAD_REQUEST
+ 
+        if not is_email_valid(email):
+            return messages.EMAIL_INPUT_BY_USER_IS_INVALID, HTTPStatus.BAD_REQUEST
+ 
+        user = DAO.get_user_by_email(data["email"])
+ 
+        if user is None:
+            return messages.USER_IS_NOT_REGISTERED_IN_THE_SYSTEM, HTTPStatus.NOT_FOUND
+ 
+        if not user.is_email_verified:
+            return messages.USER_HAS_NOT_VERIFIED_EMAIL_BEFORE_LOGIN, HTTPStatus.FORBIDDEN
+ 
+        send_email_reset_password_message(user.name, user.email)
+ 
+        return messages.PASSWORD_RESET_MAIL_MESSAGE, HTTPStatus.OK
+ 
+@users_ns.route("user/reset_password")
+@users_ns.response(HTTPStatus.OK, f"{messages.PASSWORD_SUCCESSFULLY_UPDATED}")
+@users_ns.response(
+    HTTPStatus.UNAUTHORIZED,
+    f"{messages.RESET_PASSWORD_TOKEN_HAS_EXPIRED}\n{messages.AUTHORISATION_TOKEN_IS_MISSING}"
+)
+@users_ns.response(HTTPStatus.BAD_REQUEST, f"{messages.PASSWORD_FIELD_IS_MISSING}")
+class ResetPassword(Resource):
+    @classmethod
+    @users_ns.doc("reset")
+    @users_ns.expect(reset_password_forgot_request_data_model, validate=True)
+    def post(self):
+        """ Updates User's password
+ 
+        This will allow the user to change/create a new password 
+        In case they forgot it.
+ 
+        Args:
+            token: token of reset link sent on verified mail
+            new_password: take the new validated password to login
+ 
+        Return:
+            Password Updated successfully
+        """
+        data = request.json
+        token = data["token"]
+        new_password = data["new_password"]
+ 
+        if not token:
+            return messages.AUTHORISATION_TOKEN_IS_MISSING, HTTPStatus.UNAUTHORIZED
+ 
+        if not new_password:
+            return messages.PASSWORD_FIELD_IS_MISSING, HTTPStatus.BAD_REQUEST
+ 
+        is_valid = validate_reset_password(data)
+ 
+        if is_valid != {}:
+            return is_valid, HTTPStatus.BAD_REQUEST
+ 
+        email_from_token = DAO.reset_password_token(token)
+ 
+        if not email_from_token:
+            return messages.RESET_PASSWORD_TOKEN_HAS_EXPIRED, HTTPStatus.UNAUTHORIZED
+ 
+        user = DAO.get_user_by_email(email_from_token)
+ 
+        user.set_password(new_password)
+        user.save_to_db()
+ 
+        return messages.PASSWORD_SUCCESSFULLY_UPDATED, HTTPStatus.OK
+

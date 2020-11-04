@@ -7,6 +7,7 @@ These are the needed environment variables:
 export FLASK_ENVIRONMENT_CONFIG=<dev-or-test-or-prod-or-local>
 export SECRET_KEY=<your-secret-key>
 export SECURITY_PASSWORD_SALT=<your-security-password-salt>
+export SECURITY_RESET_SALT=<your-security-reset-password-salt>
 export MAIL_DEFAULT_SENDER=<mail-default-sender>
 export MAIL_SERVER=<mail-server>
 export APP_MAIL_USERNAME=<app-mail-username>
@@ -36,6 +37,8 @@ These are the currently available run configurations:
 |------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
 | SECRET_KEY             | Variable used to encrypt or hash sensitive data.  JWT based authentication uses this variable to calculate the hash of the access token. Its also used to calculate the password hash to avoid saving it in plain text. This is in string format. | 'some random key'    |
 | SECURITY_PASSWORD_SALT | Variable used for email confirmation token generation. This is in string format.                                                                                                                                                    | 'some password salt' |
+| SECURITY_RESET_SALT | Variable used for reset password email token generation. This is in string format.                                                                                                                                                    | 'some password salt' |
+
 
 ### Email Verification
 

@@ -31,6 +31,13 @@ def add_models_to_namespace(api_namespace):
     api_namespace.models[
         dashboard_sent_received_model.name
     ] = dashboard_sent_received_model
+    api_namespace.models[
+        forgot_password_change_request_data_model.name
+        ] = forgot_password_change_request_data_model
+    api_namespace.models[
+        reset_password_forgot_request_data_model.name
+        ] = reset_password_forgot_request_data_model
+
 
 
 public_user_api_model = Model(
@@ -275,3 +282,19 @@ dashboard_response_body_model = Model(
         "tasks_done": fields.List(fields.Nested(list_tasks_response_body)),
     },
 )
+
+forgot_password_change_request_data_model = Model(
+    "Forgot password change request data model",
+    {
+        "email": fields.String(required=True, description="User's email"),
+    },
+)
+ 
+reset_password_forgot_request_data_model = Model(
+    "Reset password forgot request data model",
+    {
+        "token": fields.String(required=True, description="User's access token to reset password"),
+        "new_password": fields.String(required=True, description="Users's new password"),
+    },
+)
+

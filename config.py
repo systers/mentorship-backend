@@ -44,6 +44,7 @@ class BaseConfig(object):
     DB_NAME = os.getenv("DB_NAME")
 
     UNVERIFIED_USER_THRESHOLD = 2592000  # 30 days
+    RESET_LINK_THRESHOLD = 3600  # 1 hr
 
     # Flask JWT settings
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(weeks=1)
@@ -55,6 +56,7 @@ class BaseConfig(object):
     #     raise ValueError('You need to export SECRET_KEY set for Flask application')
 
     SECURITY_PASSWORD_SALT = os.getenv("SECURITY_PASSWORD_SALT")
+    SECURITY_RESET_SALT = os.getenv("SECURITY_RESET_SALT")
 
     BCRYPT_LOG_ROUNDS = 13
     WTF_CSRF_ENABLED = True
