@@ -37,7 +37,7 @@ DAO = UserDAO()  # User data access object
 class UserList(Resource):
     @classmethod
     @jwt_required
-    @users_ns.doc("list_users", params={"search": "Search query", "page": "specify page of users (default: 1)", "per_page": "specify number of users per page (default: 10)"})
+    @users_ns.doc("list_users", params={"search": "Search query", "page": "specify page of users (default: 1)", "per_page": "specify number of users per page (default: 10)", "location":"location of the user"})
     @users_ns.doc(
         responses={
             HTTPStatus.UNAUTHORIZED: f"{messages.TOKEN_HAS_EXPIRED['message']}<br>"
@@ -60,9 +60,10 @@ class UserList(Resource):
 
         page = request.args.get("page", default=UserDAO.DEFAULT_PAGE, type=int)
         per_page = request.args.get("per_page", default=UserDAO.DEFAULT_USERS_PER_PAGE, type=int)
+        location = request.args.get("location", None)
 
         user_id = get_jwt_identity()
-        return DAO.list_users(user_id, request.args.get("search", ""), page, per_page)
+        return DAO.list_users(user_id, request.args.get("search", ""), page, per_page, location=location)
 
 
 @users_ns.route("users/<int:user_id>")
@@ -216,7 +217,7 @@ class ChangeUserPassword(Resource):
 class VerifiedUser(Resource):
     @classmethod
     @jwt_required
-    @users_ns.doc("get_verified_users", params={"search": "Search query", "page": "specify page of users", "per_page": "specify number of users per page"})
+    @users_ns.doc("get_verified_users", params={"search": "Search query", "page": "specify page of users", "per_page": "specify number of users per page", "location":"location of the user"})
     @users_ns.doc(
         responses={
             HTTPStatus.UNAUTHORIZED: f"{messages.TOKEN_HAS_EXPIRED['message']}<br>"
@@ -239,9 +240,10 @@ class VerifiedUser(Resource):
 
         page = request.args.get("page", default=UserDAO.DEFAULT_PAGE, type=int)
         per_page = request.args.get("per_page", default=UserDAO.DEFAULT_USERS_PER_PAGE, type=int)
+        location = request.args.get("location", None)
 
         user_id = get_jwt_identity()
-        return DAO.list_users(user_id, request.args.get("search", ""), page, per_page, is_verified=True)
+        return DAO.list_users(user_id, request.args.get("search", ""), page, per_page, is_verified=True, location=location)
 
 
 @users_ns.route("register")

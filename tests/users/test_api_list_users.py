@@ -13,7 +13,7 @@ from app.database.sqlalchemy_extension import db
 from app.utils.enum_utils import MentorshipRelationState
 from tests.base_test_case import BaseTestCase
 from tests.test_utils import get_test_request_header
-from tests.test_data import user1, user2, user3
+from tests.test_data import user1, user2, user3, user5
 
 
 class TestListUsersApi(BaseTestCase):
@@ -42,6 +42,15 @@ class TestListUsersApi(BaseTestCase):
             terms_and_conditions_checked=user3["terms_and_conditions_checked"],
         )
 
+        self.third_user = UserModel(
+            name=user5["name"],
+            email=user5["email"],
+            username=user5["username"],
+            password=user5["password"],
+            terms_and_conditions_checked=user5["terms_and_conditions_checked"],
+        )
+        self.third_user.location = user5["location"]
+
         self.verified_user.is_email_verified = True
         self.verified_user.need_mentoring = True
 
@@ -50,10 +59,12 @@ class TestListUsersApi(BaseTestCase):
         self.verified_user.is_available = True
         self.other_user.is_available = False
         self.second_user.is_available = False
+        self.third_user.is_available = False
 
         db.session.add(self.verified_user)
         db.session.add(self.other_user)
         db.session.add(self.second_user)
+        db.session.add(self.third_user)
         db.session.commit()
 
     def create_relationship(self):
@@ -84,6 +95,7 @@ class TestListUsersApi(BaseTestCase):
             marshal(self.verified_user, public_user_api_model),
             marshal(self.other_user, public_user_api_model),
             marshal(self.second_user, public_user_api_model),
+            marshal(self.third_user, public_user_api_model),
         ]
         actual_response = self.client.get(
             "/users", follow_redirects=True, headers=auth_header
@@ -124,6 +136,18 @@ class TestListUsersApi(BaseTestCase):
         self.assertEqual(200, actual_response.status_code)
         self.assertEqual(expected_response, json.loads(actual_response.data))
 
+    def test_list_users_api_with_location_resource_auth(self):
+        auth_header = get_test_request_header(self.admin_user.id)
+        expected_response = [marshal(self.third_user, public_user_api_model)]
+        actual_response = self.client.get(
+            f"/users?location={self.third_user.location}",
+            follow_redirects=True,
+            headers=auth_header,
+        )
+
+        self.assertEqual(200, actual_response.status_code)
+        self.assertEqual(expected_response, json.loads(actual_response.data))
+
     def test_list_users_api_with_search_with_special_characters_resource_auth(self):
         auth_header = get_test_request_header(self.admin_user.id)
         expected_response = [marshal(self.second_user, public_user_api_model)]
@@ -141,7 +165,8 @@ class TestListUsersApi(BaseTestCase):
         expected_response = [
             marshal(self.verified_user, public_user_api_model),
             marshal(self.other_user, public_user_api_model),
-            marshal(self.second_user, public_user_api_model)]
+            marshal(self.second_user, public_user_api_model),
+            marshal(self.third_user, public_user_api_model)]
         actual_response = self.client.get(
             "/users?page=1", follow_redirects=True, headers=auth_header
         )
@@ -171,7 +196,8 @@ class TestListUsersApi(BaseTestCase):
 
     def test_list_users_api_with_a_partial_page_and_per_page_query_resource_auth(self):
         auth_header = get_test_request_header(self.admin_user.id)
-        expected_response = [marshal(self.second_user, public_user_api_model)]
+        expected_response = [marshal(self.second_user, public_user_api_model),
+        marshal(self.third_user, public_user_api_model)]
         actual_response = self.client.get(
             "/users?page=2&per_page=2", follow_redirects=True, headers=auth_header
         )
@@ -241,6 +267,7 @@ class TestListUsersApi(BaseTestCase):
             marshal(self.verified_user, public_user_api_model),
             marshal(self.other_user, public_user_api_model),
             marshal(self.second_user, public_user_api_model),
+            marshal(self.third_user, public_user_api_model),
         ]
         actual_response = self.client.get(
             "/users", follow_redirects=True, headers=auth_header

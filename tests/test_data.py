@@ -56,3 +56,14 @@ user4 = {
     "password": "user4_pwd",
     "terms_and_conditions_checked": True,
 }
+
+user5 = {
+    "name": "usernumfive",
+    "email": "usernumber5123@email.com",
+    "username": "usernum5",
+    "password": "user5_pwd",
+    "terms_and_conditions_checked": True,
+    "available_to_mentor": True,
+    "need_mentoring": True,
+    "location":"jaipur"
+}
