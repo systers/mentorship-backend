@@ -1,0 +1,56 @@
+[tool.poetry]
+name = "mentorship-backend"
+version = "1.0.0"
+description = "Backend REST API for the Mentorship System."
+authors = ["AnitaB.org <opensource@anitab.org>"]
+maintainers = ["AnitaB.org <opensource@anitab.org>"]
+license = "GNU GPL v3"
+readme = "README.md"
+homepage = "https://github.com/anitab-org/mentorship-backend"
+repository = "https://github.com/anitab-org/mentorship-backend"
+documentation = "https://github.com/anitab-org/mentorship-backend/wiki"
+keywords = ["REST API",
+    "Anita Borg",
+    "Poetry",
+    "Flask",
+    "Women in Technology"]
+
+packages = [
+    { include = "**/*.py", from = "." },
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+alembic = "1.4.2"
+APScheduler = "3.5.1"
+click = "6.7"
+coverage = "4.5.1"
+Flask = "1.0.2"
+Flask-JWT-Extended = "3.10.0"
+Flask-Mail = "0.9.1"
+Flask-Migrate = "2.5.2"
+flask-restx = "0.2.0"
+Flask-SQLAlchemy = "2.3.2"
+Flask-Testing = "0.7.1"
+gunicorn = "20.0.4"
+itsdangerous = "0.24"
+python-dotenv = "0.8.2"
+requests = "2.18.4"
+SQLAlchemy = "1.2.7"
+Werkzeug = "0.16.1"
+
+
+[tool.poetry.dev-dependencies]
+pytest = "5.2"
+black = "19.3b0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+start = "scripts:start"
+test = "scripts:test"
+
+[tool.poetry.urls]
+issues = "https://github.com/anitab-org/mentorship-backend/issues"
