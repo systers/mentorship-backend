@@ -1,4 +1,4 @@
-APScheduler==3.6.3
+APScheduler==3.7.0
 coverage==5.3
 Flask==1.0.2
 Flask-JWT-Extended==3.25.0
