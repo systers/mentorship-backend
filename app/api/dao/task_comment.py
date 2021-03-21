@@ -18,7 +18,7 @@ def validate_data_for_task_comment(user_id, task_id, relation_id):
         )
 
     if relation.state != MentorshipRelationState.ACCEPTED:
-        return messages.UNACCEPTED_STATE_RELATION, HTTPStatus.BAD_REQUEST
+        return messages.UNACCEPTED_STATE_RELATION, HTTPStatus.FORBIDDEN
 
     task = relation.tasks_list.find_task_by_id(task_id)
     if task is None:
