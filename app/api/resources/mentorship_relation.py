@@ -274,7 +274,7 @@ class CancelMentorshipRelation(Resource):
         HTTPStatus.OK, f"{messages.MENTORSHIP_RELATION_WAS_CANCELLED_SUCCESSFULLY}"
     )
     @mentorship_relation_ns.response(
-        HTTPStatus.BAD_REQUEST,
+        HTTPStatus.FORBIDDEN,
         f"{messages.UNACCEPTED_STATE_RELATION}\n"
         f"{messages.CANT_CANCEL_UNINVOLVED_REQUEST}",
     )

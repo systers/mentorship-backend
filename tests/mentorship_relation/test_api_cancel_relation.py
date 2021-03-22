@@ -126,7 +126,7 @@ class TestCancelMentorshipRelationApi(MentorshipRelationBaseTestCase):
                 headers=get_test_request_header(self.admin_user.id),
             )
 
-            self.assertEqual(HTTPStatus.BAD_REQUEST, response.status_code)
+            self.assertEqual(HTTPStatus.FORBIDDEN, response.status_code)
             self.assertDictEqual(expected_response, json.loads(response.data))
 
 

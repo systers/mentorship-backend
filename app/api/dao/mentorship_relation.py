@@ -298,11 +298,11 @@ class MentorshipRelationDAO:
 
         # verify if request is in pending state
         if request.state != MentorshipRelationState.ACCEPTED:
-            return messages.UNACCEPTED_STATE_RELATION, HTTPStatus.BAD_REQUEST
+            return messages.UNACCEPTED_STATE_RELATION, HTTPStatus.FORBIDDEN
 
         # verify if I'm involved in this relation
         if not (request.mentee_id == user_id or request.mentor_id == user_id):
-            return messages.CANT_CANCEL_UNINVOLVED_REQUEST, HTTPStatus.BAD_REQUEST
+            return messages.CANT_CANCEL_UNINVOLVED_REQUEST, HTTPStatus.FORBIDDEN
 
         # All was checked
         request.state = MentorshipRelationState.CANCELLED
