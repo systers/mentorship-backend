@@ -162,13 +162,13 @@ def validate_update_profile_request_data(data):
         if not is_valid[0]:
             return is_valid[1]
 
-    organization = data.get("organization", None)
-    if organization:
+    current_organization = data.get("current_organization", None)
+    if current_organization:
         is_valid = validate_length(
-            len(get_stripped_string(organization)),
+            len(get_stripped_string(current_organization)),
             0,
             ORGANIZATION_MAX_LENGTH,
-            "organization",
+            "current_organization",
         )
         if not is_valid[0]:
             return is_valid[1]

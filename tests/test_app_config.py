@@ -24,7 +24,6 @@ class TestTestingConfig(TestCase):
         self.assertFalse(application.config["DEBUG"])
         self.assertTrue(application.config["TESTING"])
         self.assertFalse(application.config["SQLALCHEMY_TRACK_MODIFICATIONS"])
-        self.assertEqual("sqlite://", application.config["SQLALCHEMY_DATABASE_URI"])
         self.assertIsNotNone(current_app)
 
         # testing JWT configurations
@@ -89,7 +88,6 @@ class TestStagingConfig(TestCase):
         self.assertTrue(application.config["DEBUG"])
         self.assertFalse(application.config["TESTING"])
         self.assertFalse(application.config["SQLALCHEMY_TRACK_MODIFICATIONS"])
-        # self.assertEqual('mysql_something', application.config['SQLALCHEMY_DATABASE_URI'])
         self.assertIsNotNone(current_app)
 
         # testing JWT configurations
@@ -113,9 +111,6 @@ class TestLocalConfig(TestCase):
         self.assertTrue(application.config["DEBUG"])
         self.assertFalse(application.config["TESTING"])
         self.assertFalse(application.config["SQLALCHEMY_TRACK_MODIFICATIONS"])
-        self.assertEqual(
-            "sqlite:///local_data.db", application.config["SQLALCHEMY_DATABASE_URI"]
-        )
         self.assertIsNotNone(current_app)
 
         # testing JWT configurations
@@ -143,7 +138,6 @@ class TestProductionConfig(TestCase):
         self.assertFalse(application.config["DEBUG"])
         self.assertFalse(application.config["TESTING"])
         self.assertFalse(application.config["SQLALCHEMY_TRACK_MODIFICATIONS"])
-        # self.assertEqual('mysql_something', application.config['SQLALCHEMY_DATABASE_URI'])
         self.assertIsNotNone(current_app)
 
         # testing JWT configurations

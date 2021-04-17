@@ -259,11 +259,11 @@ class UserDAO:
             else:
                 user.occupation = None
 
-        if "organization" in data:
-            if data["organization"]:
-                user.organization = data["organization"]
+        if "current_organization" in data:
+            if data["current_organization"]:
+                user.current_organization = data["current_organization"]
             else:
-                user.organization = None
+                user.current_organization = None
 
         if "slack_username" in data:
             if data["slack_username"]:

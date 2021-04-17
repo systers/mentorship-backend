@@ -16,10 +16,10 @@ class MentorshipRelationModel(db.Model):
         action_user_id: integer indicates id of action user.
         mentor: relationship between UserModel and mentorship_relation.
         mentee: relationship between UserModel and mentorship_relation.
-        creation_date: float that defines the date of creation of the mentorship.
-        accept_date: float that indicates the date of acceptance of mentorship.
-        start_date: float that indicates the starting date of mentorship.
-        end_date: float that indicates the ending date of mentorship.
+        creation_date: numeric that defines the date of creation of the mentorship.
+        accept_date: numeric that indicates the date of acceptance of mentorship.
+        start_date: numeric that indicates the starting date of mentorship.
+        end_date: numeric that indicates the ending date of mentorship.
         state: enumeration that indicates state of mentorship.
         notes: string that indicates any notes.
         tasks_list_id: integer indicates the id of the tasks_list
@@ -47,10 +47,10 @@ class MentorshipRelationModel(db.Model):
         primaryjoin="MentorshipRelationModel.mentee_id == UserModel.id",
     )
 
-    creation_date = db.Column(db.Float, nullable=False)
-    accept_date = db.Column(db.Float)
-    start_date = db.Column(db.Float)
-    end_date = db.Column(db.Float)
+    creation_date = db.Column(db.Numeric("16,6", asdecimal=False), nullable=False)
+    accept_date = db.Column(db.Numeric("16,6", asdecimal=False))
+    start_date = db.Column(db.Numeric("16,6", asdecimal=False))
+    end_date = db.Column(db.Numeric("16,6", asdecimal=False))
 
     state = db.Column(db.Enum(MentorshipRelationState), nullable=False)
     notes = db.Column(db.String(400))

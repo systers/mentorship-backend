@@ -32,7 +32,7 @@ public_admin_user_api_model = Model(
         "bio": fields.String(required=True, description="User bio"),
         "location": fields.String(required=True, description="User location"),
         "occupation": fields.String(required=True, description="User occupation"),
-        "organization": fields.String(required=True, description="User organization"),
+        "current_organization": fields.String(required=True, description="User current organization"),
         "skills": fields.String(required=True, description="User skills"),
     },
 )

@@ -7,14 +7,14 @@ from app.database.sqlalchemy_extension import db
 class TaskCommentModel(db.Model):
     """Defines attributes for the task comment.
 
-    Attributes:
-        task_id: An integer for storing the task's id.
-        user_id: An integer for storing the user's id.
-        relation_id: An integer for storing the relation's id.
-        creation_date: A float indicating comment's creation date.
-        modification_date: A float indicating the modification date.
-        comment: A string indicating the comment.
-    """
+        Attributes:
+            task_id: An integer for storing the task's id.
+            user_id: An integer for storing the user's id.
+            relation_id: An integer for storing the relation's id.
+            creation_date: A numeric indicating comment's creation date.
+            modification_date: A numeric indicating the modification date.
+            comment: A string indicating the comment.
+        """
 
     # Specifying database table used for TaskCommentModel
     __tablename__ = "tasks_comments"
@@ -24,8 +24,8 @@ class TaskCommentModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     task_id = db.Column(db.Integer, db.ForeignKey("tasks_list.id"))
     relation_id = db.Column(db.Integer, db.ForeignKey("mentorship_relations.id"))
-    creation_date = db.Column(db.Float, nullable=False)
-    modification_date = db.Column(db.Float)
+    creation_date = db.Column(db.Numeric("16,6", asdecimal=False), nullable=False)
+    modification_date = db.Column(db.Numeric("16,6", asdecimal=False))
     comment = db.Column(db.String(COMMENT_MAX_LENGTH), nullable=False)
 
     def __init__(self, user_id, task_id, relation_id, comment):

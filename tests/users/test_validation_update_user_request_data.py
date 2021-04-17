@@ -45,8 +45,8 @@ class TestUpdateUserApiRequestDataValidation(unittest.TestCase):
             secure_random.choice(ascii_lowercase)
             for x in range(ORGANIZATION_MAX_LENGTH + 1)
         )
-        field_name = "organization"
-        request_body = dict(organization=random_generated_organization)
+        field_name = "current_organization"
+        request_body = dict(current_organization=random_generated_organization)
 
         expected_result = {
             "message": get_length_validation_error_message(
