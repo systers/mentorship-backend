@@ -23,7 +23,7 @@ add_models_to_namespace(admin_ns)
 @admin_ns.response(HTTPStatus.NOT_FOUND.value, f"{messages.USER_DOES_NOT_EXIST}")
 class AssignNewUserAdmin(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @admin_ns.expect(
         auth_header_parser, assign_and_revoke_user_admin_request_body, validate=True
     )
@@ -55,7 +55,7 @@ class AssignNewUserAdmin(Resource):
 @admin_ns.response(HTTPStatus.NOT_FOUND.value, f"{messages.USER_DOES_NOT_EXIST}")
 class RevokeUserAdmin(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @admin_ns.expect(
         auth_header_parser, assign_and_revoke_user_admin_request_body, validate=True
     )
@@ -79,7 +79,7 @@ class RevokeUserAdmin(Resource):
 @admin_ns.route("admins")
 class ListAdmins(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @admin_ns.doc("get_list_of_admins")
     @admin_ns.response(
         HTTPStatus.OK.value,

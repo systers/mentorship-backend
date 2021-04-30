@@ -3,7 +3,6 @@ from http import HTTPStatus
 from flask import request
 from flask_jwt_extended import (
     jwt_required,
-    jwt_refresh_token_required,
     create_access_token,
     create_refresh_token,
     get_jwt_identity,
@@ -33,7 +32,7 @@ DAO = UserDAO()  # User data access object
 # TODO: @users_ns.response(404, 'User does not exist.')
 class UserList(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @users_ns.doc(
         "list_users",
         params={
@@ -82,7 +81,7 @@ class UserList(Resource):
 @users_ns.param("user_id", "The user identifier")
 class OtherUser(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @users_ns.doc("get_user")
     @users_ns.expect(auth_header_parser)
     @users_ns.response(
@@ -121,7 +120,7 @@ class OtherUser(Resource):
 @users_ns.response(HTTPStatus.NOT_FOUND.value, f"{messages.USER_DOES_NOT_EXIST}")
 class MyUserProfile(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @users_ns.doc("get_user")
     @users_ns.expect(auth_header_parser, validate=True)
     @users_ns.marshal_with(
@@ -138,7 +137,7 @@ class MyUserProfile(Resource):
         return DAO.get_user(user_id)
 
     @classmethod
-    @jwt_required
+    @jwt_required()
     @users_ns.doc("update_user_profile")
     @users_ns.expect(auth_header_parser, update_user_request_body_model)
     @users_ns.response(HTTPStatus.OK.value, f"{messages.USER_SUCCESSFULLY_UPDATED}")
@@ -174,7 +173,7 @@ class MyUserProfile(Resource):
         return DAO.update_user_profile(user_id, data)
 
     @classmethod
-    @jwt_required
+    @jwt_required()
     @users_ns.doc("delete_user")
     @users_ns.expect(auth_header_parser, validate=True)
     @users_ns.response(HTTPStatus.OK.value, f"{messages.USER_SUCCESSFULLY_DELETED}")
@@ -207,7 +206,7 @@ class MyUserProfile(Resource):
 @users_ns.route("user/change_password")
 class ChangeUserPassword(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @users_ns.doc("update_user_password")
     @users_ns.expect(
         auth_header_parser, change_password_request_data_model, validate=True
@@ -237,7 +236,7 @@ class ChangeUserPassword(Resource):
 @users_ns.route("users/verified")
 class VerifiedUser(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @users_ns.doc(
         "get_verified_users",
         params={
@@ -404,7 +403,7 @@ class UserResendEmailConfirmation(Resource):
 @users_ns.route("refresh")
 class RefreshUser(Resource):
     @classmethod
-    @jwt_refresh_token_required
+    @jwt_required(refresh=True)
     @users_ns.doc("refresh")
     @users_ns.response(
         HTTPStatus.OK.value,
@@ -511,7 +510,7 @@ class LoginUser(Resource):
 @users_ns.response(HTTPStatus.NOT_FOUND.value, f"{messages.USER_NOT_FOUND}")
 class UserHomeStatistics(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @users_ns.expect(auth_header_parser)
     def get(cls):
         """Get Statistics regarding the current user
@@ -538,7 +537,7 @@ class UserHomeStatistics(Resource):
 @users_ns.response(HTTPStatus.NOT_FOUND.value, f"{messages.USER_NOT_FOUND}")
 class UserDashboard(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @users_ns.expect(auth_header_parser)
     def get(cls):
         """Get current User's dashboard

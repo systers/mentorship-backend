@@ -25,7 +25,7 @@ userDAO = UserDAO()
 @mentorship_relation_ns.route("mentorship_relation/send_request")
 class SendRequest(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @mentorship_relation_ns.doc("send_request")
     @mentorship_relation_ns.expect(auth_header_parser, send_mentorship_request_body)
     @mentorship_relation_ns.response(
@@ -122,7 +122,7 @@ class SendRequest(Resource):
 @mentorship_relation_ns.route("mentorship_relations")
 class GetAllMyMentorshipRelation(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @mentorship_relation_ns.doc("get_all_user_mentorship_relations")
     @mentorship_relation_ns.expect(auth_header_parser)
     @mentorship_relation_ns.param(
@@ -174,7 +174,7 @@ class GetAllMyMentorshipRelation(Resource):
 @mentorship_relation_ns.route("mentorship_relation/<int:request_id>/accept")
 class AcceptMentorshipRelation(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @mentorship_relation_ns.doc("accept_mentorship_relation")
     @mentorship_relation_ns.expect(auth_header_parser)
     @mentorship_relation_ns.response(
@@ -223,7 +223,7 @@ class AcceptMentorshipRelation(Resource):
 @mentorship_relation_ns.route("mentorship_relation/<int:request_id>/reject")
 class RejectMentorshipRelation(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @mentorship_relation_ns.doc("reject_mentorship_relation")
     @mentorship_relation_ns.expect(auth_header_parser)
     @mentorship_relation_ns.response(
@@ -267,7 +267,7 @@ class RejectMentorshipRelation(Resource):
 @mentorship_relation_ns.route("mentorship_relation/<int:request_id>/cancel")
 class CancelMentorshipRelation(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @mentorship_relation_ns.doc("cancel_mentorship_relation")
     @mentorship_relation_ns.expect(auth_header_parser)
     @mentorship_relation_ns.response(
@@ -310,7 +310,7 @@ class CancelMentorshipRelation(Resource):
 @mentorship_relation_ns.route("mentorship_relation/<int:request_id>")
 class DeleteMentorshipRelation(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @mentorship_relation_ns.doc("delete_mentorship_relation")
     @mentorship_relation_ns.expect(auth_header_parser)
     @mentorship_relation_ns.response(
@@ -353,7 +353,7 @@ class DeleteMentorshipRelation(Resource):
 @mentorship_relation_ns.route("mentorship_relations/past")
 class ListPastMentorshipRelations(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @mentorship_relation_ns.doc("get_past_mentorship_relations")
     @mentorship_relation_ns.expect(auth_header_parser)
     @mentorship_relation_ns.response(
@@ -392,7 +392,7 @@ class ListPastMentorshipRelations(Resource):
 @mentorship_relation_ns.route("mentorship_relations/current")
 class ListCurrentMentorshipRelation(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @mentorship_relation_ns.doc("get_current_mentorship_relation")
     @mentorship_relation_ns.expect(auth_header_parser)
     @mentorship_relation_ns.response(
@@ -432,7 +432,7 @@ class ListCurrentMentorshipRelation(Resource):
 @mentorship_relation_ns.route("mentorship_relations/pending")
 class ListPendingMentorshipRequests(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @mentorship_relation_ns.doc("get_pending_mentorship_relations")
     @mentorship_relation_ns.expect(auth_header_parser)
     @mentorship_relation_ns.response(

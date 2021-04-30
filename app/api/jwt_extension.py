@@ -10,7 +10,7 @@ jwt._set_error_handler_callbacks(api)
 
 
 @jwt.expired_token_loader
-def my_expired_token_callback():
+def my_expired_token_callback(jwt_header, jwt_payload):
     return messages.TOKEN_HAS_EXPIRED, HTTPStatus.UNAUTHORIZED
 
 

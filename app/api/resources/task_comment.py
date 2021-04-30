@@ -21,7 +21,7 @@ add_models_to_namespace(task_comment_ns)
 )
 class CreateTaskComment(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @task_comment_ns.expect(auth_header_parser, task_comment_model)
     @task_comment_ns.doc(
         responses={
@@ -61,7 +61,7 @@ class CreateTaskComment(Resource):
 )
 class TaskComment(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @task_comment_ns.expect(auth_header_parser, task_comment_model)
     @task_comment_ns.doc(
         responses={
@@ -99,7 +99,7 @@ class TaskComment(Resource):
         )
 
     @classmethod
-    @jwt_required
+    @jwt_required()
     @task_comment_ns.expect(auth_header_parser)
     @task_comment_ns.doc(
         responses={
@@ -132,7 +132,7 @@ class TaskComment(Resource):
 )
 class TaskComments(Resource):
     @classmethod
-    @jwt_required
+    @jwt_required()
     @task_comment_ns.expect(auth_header_parser)
     @task_comment_ns.response(
         HTTPStatus.OK,
