@@ -1,6 +1,7 @@
 from flask import Flask
-from config import get_env_config
 from flask_migrate import Migrate
+
+from config import get_env_config
 
 
 def create_app(config_filename: str) -> Flask:

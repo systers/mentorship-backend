@@ -131,7 +131,6 @@ class TestingConfig(BaseConfig):
 
     TESTING = True
     MOCK_EMAIL = True
-
     # Use in-memory SQLite database for testing
     SQLALCHEMY_DATABASE_URI = "sqlite://"
 

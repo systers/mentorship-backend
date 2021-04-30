@@ -12,11 +12,13 @@ def get_test_request_header(user_identity, token_expiration_delta=None, refresh=
     """
     if refresh:
         token = create_refresh_token(
-            identity=user_identity, expires_delta=token_expiration_delta
+            identity={"userID": user_identity, "token_type": "refresh"},
+            expires_delta=token_expiration_delta,
         )
     else:
         token = create_access_token(
-            identity=user_identity, expires_delta=token_expiration_delta
+            identity={"userID": user_identity, "token_type": "access"},
+            expires_delta=token_expiration_delta,
         )
     header = {"Authorization": "Bearer {}".format(token)}
     return header
