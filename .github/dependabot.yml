@@ -1,0 +1,25 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "10:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: python-dotenv
+    versions:
+    - 0.15.0
+    - 0.16.0
+  - dependency-name: flask-jwt-extended
+    versions:
+    - 4.0.2
+  - dependency-name: coverage
+    versions:
+    - "5.4"
+  - dependency-name: flask-migrate
+    versions:
+    - 2.6.0
+  - dependency-name: awsebcli
+    versions:
+    - 3.19.3
