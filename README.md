@@ -209,6 +209,25 @@ To run black:
 black .
 ```
 
+### Run migration Scripts
+
+* For new contributors who just completed environment setup, run the following command **AFTER** running the application for the first time.
+
+```
+flask db stamp head
+```
+
+This will attach the alembic version number on the repo (if any) to the local db.
+
+* For existing contributors, run the following command:
+
+```
+flask db upgrade
+```
+
+This will apply the changes to the existing local db as well as attach the alembic version number. 
+
+ 
 ## Documentation
 
 Documentation for the project is hosted [here](https://anitab-org.github.io/mentorship-backend/). We use Docusaurus for maintaining the documentation of the project.
@@ -271,8 +290,7 @@ The repository has the following permanent branches:
 
  * **develop** This contains the latest code. All the contributing PRs must be sent to this branch. When we want to release the next version of the app, this branch is merged into the `master` branch. This is the branch that is used in the deployed version of the app on Heroku.
 
- * **bit** This branch is for MS-backend version specific to [BridgeInTech](https://github.com/anitab-org/bridge-in-tech-backend) project. All the contributing PRs related to BIT-MS integration issue must be sent to this branch.<br>
-**IMPORTANT!!** If this is your first time setting up the BridgeInTech project, please <b>DO NOT RUN</b> the MS backend server from this branch <b>BEFORE</b> you run the BIT backend server. Failing to do this will mess up the postgres db schemas used in BIT project. More instruction on setting up the BridgeInTech project can be found [here](https://github.com/anitab-org/bridge-in-tech-backend/blob/develop/.github/ENV_SETUP_INSTRUCTION.md).
+ * **bit** This branch is for Mentorship System backend and [BridgeInTech backend](https://github.com/anitab-org/bridge-in-tech-backend) full integration version. All the contributing PRs related to BIT-MS integration issue must be sent to this branch.<br>. 
 
 
 ## Contact
