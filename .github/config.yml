@@ -1,0 +1,54 @@
+# Configuration for welcome - https://github.com/behaviorbot/welcome
+
+# Configuration for new-issue-welcome - https://github.com/behaviorbot/new-issue-welcome
+
+# Comment to be posted to on first time issues
+newIssueWelcomeComment: |
+  Hello there!👋 Welcome to the project!💖
+
+  Thank you and congrats 🎉 for opening your very first issue in this project.
+  AnitaB.org is an inclusive community, committed to creating a safe and positive environment.🌸 Please adhere to our [Code Of Conduct](https://github.com/anitab-org/mentorship-backend/blob/develop/docs/code_of_conduct.md).🙌🏻
+
+  You may submit a PR on the same if you like!
+  Please follow our [Commit Message Style Guide](https://github.com/anitab-org/mentorship-backend/wiki/Commit-Message-Style-Guide) and [Coding Standards](../docs/coding_standards.md) while sending PRs.
+  If you want to report a bug🐞, please follow our [bug_report.md](https://github.com/anitab-org/mentorship-backend/blob/develop/.github/ISSUE_TEMPLATE/bug_report.md) template.
+  Also please make sure you include steps to reproduce it and be patient we will get back to you as soon as we can.👀
+
+
+  Also feel free to join us on [AnitaB.org Open Source Zulip Community](https://anitab-org.zulipchat.com/).🤝 We have different streams for each active repo's for discussions.👩🏻‍💻🧑🏻‍💻
+  For mentorship-backend, join [#**mentorship-system>mentorship-backend**](https://anitab-org.zulipchat.com/#narrow/stream/222534-mentorship-system/topic/mentorship-backend)! Hope you have a great time here :)
+
+# Configuration for new-pr-welcome - https://github.com/behaviorbot/new-pr-welcome
+
+# Comment to be posted to on PRs from first time contributors in your repository
+newPRWelcomeComment: |
+  Hello there!👋 Welcome to the project!💖
+  Thank you and congrats 🎉 for opening your first PR on this project.✨
+  Please ensure your Pull Request meets the [Commit Message Style Guide](https://github.com/anitab-org/mentorship-backend/wiki/Commit-Message-Style-Guide).
+  We will review it soon! Until then you can check out the [`README.md`](../README.md) for more details on it.
+
+  Moja-Global is an inclusive community, committed to creating a safe and positive environment.🌸 Please adhere to our [Code Of Conduct]().
+
+  Feel free to join our community at [AnitaB.org Open Source Zulip Community](https://anitab-org.zulipchat.com/) to be kept up to date with our projects discussions and community activities.
+  Hope you have a great time here :)
+
+# Configuration for first-pr-merge - https://github.com/behaviorbot/first-pr-merge
+
+# Comment to be posted to on pull requests merged by a first time user
+firstPRMergeComment: |
+  Woohoo!🎊 Congrats on merging your first contribution to [mentorship-backend](https://github.com/anitab-org/mentorship-backend)!✨
+  Your code is officially a part of AnitaB.org Open Source now!! Time for a celebration 🙌🎉⚡️
+  Feel free to explore more on this project.🤗
+  Join us on [AnitaB.org Open Source Zulip](https://anitab-org.zulipchat.com/). 🤝 
+  We have different streams for each active repository for discussions. 👩🏽‍💻🧑🏼‍💻
+  Do join our weekly check-in stream to share your weekly goals and the awesome work you did here.😃
+
+  <details>
+  <summary><b>Now that you've completed this, you can help someone else take their first step!</b></summary>
+  <p>Check out projects stream on Zulip and the `First Timers Only` issues to check if someone needs help to figure out their problem or need some feedbacks. Reach out and be encouraging and friendly! 😄 🎉</p>
+  <p>People often get stuck at the same steps, so you might be able to help someone get unstuck, or help lead them to some documentation that'd help. Reach out and be encouraging and friendly! 😄 🎉 </p>
+  <p>Create a welcoming issue for someone else or review their pull requests! 😄 🎉 </p>
+  </details>
+
+
+# It is recommended to include as many gifs and emojis as possible!
