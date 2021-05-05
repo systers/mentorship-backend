@@ -81,7 +81,7 @@ class TestDeleteMentorshipRequestApi(MentorshipRelationBaseTestCase):
             )
         self.assertEqual(HTTPStatus.FORBIDDEN, response.status_code)
         self.assertDictEqual(
-            messages.CANT_DELETE_UNINVOLVED_REQUEST, json.loads(response.data)
+            messages.CANT_DELETE_REQUEST_YOU_DIDNT_CREATE, json.loads(response.data)
         )
         self.assertIsNotNone(
             MentorshipRelationModel.query.filter_by(id=request_id).first()

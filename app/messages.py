@@ -138,7 +138,7 @@ CANT_REJECT_UNINVOLVED_RELATION_REQUEST = {
 CANT_CANCEL_UNINVOLVED_REQUEST = {
     "message": "You cannot cancel a mentorship" " relation where you are not involved."
 }
-CANT_DELETE_UNINVOLVED_REQUEST = {
+CANT_DELETE_REQUEST_YOU_DIDNT_CREATE = {
     "message": "You cannot delete a mentorship" " request that you did not create."
 }
 NOT_IN_MENTORED_RELATION_CURRENTLY = {

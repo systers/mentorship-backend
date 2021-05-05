@@ -319,7 +319,7 @@ class DeleteMentorshipRelation(Resource):
     @mentorship_relation_ns.response(
         HTTPStatus.FORBIDDEN,
         f"{messages.NOT_PENDING_STATE_RELATION}\n"
-        f"{messages.CANT_DELETE_UNINVOLVED_REQUEST}",
+        f"{messages.CANT_DELETE_REQUEST_YOU_DIDNT_CREATE}",
     )
     @mentorship_relation_ns.response(
         HTTPStatus.UNAUTHORIZED,
