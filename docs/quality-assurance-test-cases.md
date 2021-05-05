@@ -174,6 +174,31 @@ This document contains some examples of test cases for each feature implemented 
 | Logged in user tries to complete a task from a request which is not in the ACCEPTED state (as a mentor or as a mentee) | Fail |
 
 
+### Tasks
+
+#### Create
+
+**Service:** POST /mentorship_relation/{relation_id}/task
+
+|  Test Case                                                                                | Outcome |
+| ----------------------------------------------------------------------------------------- |-------- |
+| Create a task for a relation, in the accepted state, between logged user and another user | Success |
+| Creating a task without a description (either empty or not in the request body at all)    | Fail    |
+| Create a task when a logged user is not involved in the relation                          | Fail    |
+| Create a task if relation state is different than accepted                                | Fail    |
+
+#### List All Tasks
+
+**Service:** GET /mentorship_relation/{request_id}/task
+
+| Test Case                                                                                                                                               | Outcome |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Logged in user requests list all task,or out of all task,for a mentorship relation those which involves the user (as a mentor or as a mentee)           | Success |
+| Logged in user requests list all task,or out of all task, for a mentorship relation which does not involves the user (neither as a mentor nor as a mentee) | Fail |
+| Logged in user requests to list all task for a invalid mentorship relation , which involves the user (as a mentor or as a mentee)                       | Fail |     
+| Not logged in user requests to List all task for any valid/invalid mentorship relation                                                                  | Fail |
+
+
 ## Admins
 
 Only admin users have access to this.
@@ -214,16 +239,6 @@ Only admin users have access to this.
 | An Admin User returns self details                                                       | Fail    |
 
 ## Tasks
-
-### Create
-**Service:** POST /mentorship_relation/{relation_id}/task
-
-|  Test Case                                                                                | Outcome |
-| ----------------------------------------------------------------------------------------- |-------- |
-| Create a task for a relation, in the accepted state, between logged user and another user | Success |
-| Creating a task without a description (either empty or not in the request body at all)    | Fail    |
-| Create a task when a logged user is not involved in the relation                          | Fail    |
-| Create a task if relation state is different than accepted                                | Fail    |
 
 ### Confirmation of users email
 
