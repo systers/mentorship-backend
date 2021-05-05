@@ -158,7 +158,7 @@ This document contains some examples of test cases for each feature implemented 
 
 ### Update task
 
-**Service:** PUT /mentorship_relation/{request_id}/task/{task_id}/complete
+**Service:** PUT /mentorship_relation/{relation_id}/task/{task_id}/complete
 
 | Test Case       | Outcome |
 | ------------- | ------------- |

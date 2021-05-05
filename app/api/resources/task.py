@@ -16,7 +16,7 @@ task_ns = Namespace(
 add_models_to_namespace(task_ns)
 
 
-@task_ns.route("mentorship_relation/<int:request_id>/task")
+@task_ns.route("mentorship_relation/<int:relation_id>/task")
 class CreateTask(Resource):
     @classmethod
     @jwt_required
@@ -33,13 +33,13 @@ class CreateTask(Resource):
     @task_ns.response(
         HTTPStatus.FORBIDDEN, f"{messages.USER_NOT_INVOLVED_IN_THIS_MENTOR_RELATION}"
     )
-    def post(cls, request_id):
+    def post(cls, relation_id):
         """
         Create a task for a mentorship relation.
 
         Input:
         1. Header: valid access token
-        2. Path: ID of request for which task is being created (request_id)
+        2. Path: ID of request for which task is being created (relation_id)
         3. Body: JSON object containing description of task.
 
         Returns:
@@ -58,7 +58,7 @@ class CreateTask(Resource):
             return is_valid, HTTPStatus.BAD_REQUEST
 
         response = TaskDAO.create_task(
-            user_id=user_id, mentorship_relation_id=request_id, data=request_body
+            user_id=user_id, mentorship_relation_id=relation_id, data=request_body
         )
 
         return response
@@ -72,7 +72,7 @@ class CreateTask(Resource):
         return {}
 
 
-@task_ns.route("mentorship_relation/<int:request_id>/task/<int:task_id>")
+@task_ns.route("mentorship_relation/<int:relation_id>/task/<int:task_id>")
 class DeleteTask(Resource):
     @classmethod
     @jwt_required
@@ -91,14 +91,14 @@ class DeleteTask(Resource):
         f"{messages.MENTORSHIP_RELATION_DOES_NOT_EXIST}\n"
         f"{messages.TASK_DOES_NOT_EXIST}",
     )
-    def delete(cls, request_id, task_id):
+    def delete(cls, relation_id, task_id):
         """
         Delete a task.
 
         Input:
         1. Header: valid access token
         2. Path: ID of the task to be deleted (task_id) and it ID of the associated
-        mentorship relation (request_id).
+        mentorship relation (relation_id).
         3. Body: JSON object containing description of task.
 
         Returns:
@@ -110,13 +110,13 @@ class DeleteTask(Resource):
         user_id = get_jwt_identity()
 
         response = TaskDAO.delete_task(
-            user_id=user_id, mentorship_relation_id=request_id, task_id=task_id
+            user_id=user_id, mentorship_relation_id=relation_id, task_id=task_id
         )
 
         return response
 
 
-@task_ns.route("mentorship_relation/<int:request_id>/tasks")
+@task_ns.route("mentorship_relation/<int:relation_id>/tasks")
 class ListTasks(Resource):
     @classmethod
     @jwt_required
@@ -137,14 +137,14 @@ class ListTasks(Resource):
     @task_ns.response(
         HTTPStatus.NOT_FOUND, f"{messages.MENTORSHIP_RELATION_DOES_NOT_EXIST}"
     )
-    def get(cls, request_id):
+    def get(cls, relation_id):
         """
         List all tasks from a mentorship relation.
 
         Input:
         1. Header: valid access token
         2. Path: ID of the mentorship relation for which tasks are to be
-        displayed(request_id). The user must be involved in this relation.
+        displayed(relation_id). The user must be involved in this relation.
 
         Returns:
         JSON array containing task details as objects is displayed on success.
@@ -155,7 +155,7 @@ class ListTasks(Resource):
         user_id = get_jwt_identity()
 
         response = TaskDAO.list_tasks(
-            user_id=user_id, mentorship_relation_id=request_id
+            user_id=user_id, mentorship_relation_id=relation_id
         )
 
         if isinstance(response, tuple):
@@ -164,7 +164,7 @@ class ListTasks(Resource):
         return marshal(response, list_tasks_response_body), HTTPStatus.OK
 
 
-@task_ns.route("mentorship_relation/<int:request_id>/task/<int:task_id>/complete")
+@task_ns.route("mentorship_relation/<int:relation_id>/task/<int:task_id>/complete")
 class UpdateTask(Resource):
     @classmethod
     @jwt_required
@@ -183,14 +183,14 @@ class UpdateTask(Resource):
         HTTPStatus.NOT_FOUND,
         f"{messages.MENTORSHIP_RELATION_DOES_NOT_EXIST}\n{messages.TASK_DOES_NOT_EXIST}",
     )
-    def put(cls, request_id, task_id):
+    def put(cls, relation_id, task_id):
         """
         Update a task to mark it as complate
 
         Input:
         1. Header: valid access token
         2. Path: ID of task (task_id) and ID of the associated mentorship
-        relation (request_id). The user must be involved in this relation.
+        relation (relation_id). The user must be involved in this relation.
         3. Body:
 
         Returns:
@@ -202,7 +202,7 @@ class UpdateTask(Resource):
         user_id = get_jwt_identity()
 
         response = TaskDAO.complete_task(
-            user_id=user_id, mentorship_relation_id=request_id, task_id=task_id
+            user_id=user_id, mentorship_relation_id=relation_id, task_id=task_id
         )
 
         return response
