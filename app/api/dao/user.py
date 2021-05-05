@@ -4,6 +4,7 @@ from http import HTTPStatus
 from typing import Dict
 from flask_restx import marshal
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 
 from app import messages
 from app.api.email_utils import confirm_token
@@ -44,30 +45,27 @@ class UserDAO:
         password = data["password"]
         email = data["email"]
         terms_and_conditions_checked = data["terms_and_conditions_checked"]
-
-        existing_user = UserModel.find_by_username(data["username"])
-        if existing_user:
-            return (
-                messages.USER_USES_A_USERNAME_THAT_ALREADY_EXISTS,
-                HTTPStatus.CONFLICT,
-            )
-        else:
-            existing_user = UserModel.find_by_email(data["email"])
-            if existing_user:
-                return (
-                    messages.USER_USES_AN_EMAIL_ID_THAT_ALREADY_EXISTS,
-                    HTTPStatus.CONFLICT,
-                )
-
         user = UserModel(name, username, password, email, terms_and_conditions_checked)
+
         if "need_mentoring" in data:
             user.need_mentoring = data["need_mentoring"]
 
         if "available_to_mentor" in data:
             user.available_to_mentor = data["available_to_mentor"]
 
-        user.save_to_db()
-
+        try:
+            user.save_to_db()
+        except IntegrityError as e:
+            if e.args.__str__().__contains__("username"):
+                return (
+                    messages.USER_USES_A_USERNAME_THAT_ALREADY_EXISTS,
+                    HTTPStatus.CONFLICT,
+                )
+            if e.args.__str__().__contains__("email"):
+                return (
+                    messages.USER_USES_AN_EMAIL_ID_THAT_ALREADY_EXISTS,
+                    HTTPStatus.CONFLICT,
+                )
         return messages.USER_WAS_CREATED_SUCCESSFULLY, HTTPStatus.CREATED
 
     @staticmethod
