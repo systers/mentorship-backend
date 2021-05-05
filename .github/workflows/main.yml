@@ -40,16 +40,13 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run tests
       run: |
-        python -m unittest discover tests -v
-    - name: Generate coverage report
-      run: |
-        pip install pytest
-        pip install pytest-cov
-        pytest --cov-config=.coveragerc
-        pytest --cov=./ --cov-report=xml
+        make docker_test
+      
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
-        file: ./coverage.xml
+        file: ./cov/coverage.xml
         name: codecov-umbrella
         fail_ci_if_error: true
+        
+

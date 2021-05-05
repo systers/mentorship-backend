@@ -1,0 +1,19 @@
+
+services:
+    postgres:
+      container_name: postgres
+      image: postgres
+      environment: 
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: mentorship_system
+      ports:
+        - 5432:5432
+    mentorship_system: 
+      container_name: mentorship_system
+      build: .  
+      ports: 
+        - 5000:5000
+      depends_on:
+        - postgres 
+        
+

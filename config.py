@@ -37,12 +37,13 @@ class BaseConfig(object):
     # Example:
     # MySQL: mysql+pymysql://{db_user}:{db_password}@{db_endpoint}/{db_name}
     # SQLite: sqlite:///local_data.db
-    DB_TYPE = os.getenv("DB_TYPE")
-    DB_USERNAME = os.getenv("DB_USERNAME")
-    DB_PASSWORD = os.getenv("DB_PASSWORD")
-    DB_ENDPOINT = os.getenv("DB_ENDPOINT")
-    DB_NAME = os.getenv("DB_NAME")
-
+    DB_TYPE = os.getenv("DB_TYPE", "")
+    DB_USERNAME = os.getenv("DB_USERNAME", "")
+    DB_PASSWORD = os.getenv("DB_PASSWORD", "")
+    DB_ENDPOINT = os.getenv("DB_ENDPOINT", "")
+    DB_NAME = os.getenv("DB_NAME", "")
+    DB_TEST_NAME = os.getenv("DB_TEST_NAME", "")
+    DB_TEST_ENDPOINT = os.getenv("DB_TEST_ENDPOINT", DB_ENDPOINT)
     UNVERIFIED_USER_THRESHOLD = 2592000  # 30 days
 
     # Flask JWT settings
@@ -133,7 +134,10 @@ class TestingConfig(BaseConfig):
     MOCK_EMAIL = True
 
     # Use in-memory SQLite database for testing
-    SQLALCHEMY_DATABASE_URI = "sqlite://"
+    # SQLALCHEMY_DATABASE_URI = "sqlite://"
+    SQLALCHEMY_DATABASE_URI = BaseConfig.build_db_uri(
+        db_name_arg=BaseConfig.DB_TEST_NAME, db_endpoint_arg=BaseConfig.DB_TEST_ENDPOINT
+    )
 
 
 def get_env_config() -> str:
