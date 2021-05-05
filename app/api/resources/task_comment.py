@@ -141,7 +141,7 @@ class TaskComments(Resource):
     )
     @task_comment_ns.doc(
         responses={
-            HTTPStatus.BAD_REQUEST: f"{messages.UNACCEPTED_STATE_RELATION}",
+            HTTPStatus.FORBIDDEN: f"{messages.UNACCEPTED_STATE_RELATION}",
             HTTPStatus.UNAUTHORIZED: f"{messages.TOKEN_HAS_EXPIRED}<br>"
             f"{messages.TOKEN_IS_INVALID}<br>"
             f"{messages.AUTHORISATION_TOKEN_IS_MISSING}<br>"
