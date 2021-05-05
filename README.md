@@ -209,6 +209,22 @@ To run black:
 black .
 ```
 
+### Create and run db migration script
+
+After settng up app run:
+
+```
+flask db migrate
+```
+
+This will generate migration script in `migrations/versions` then run
+
+```
+flask db upgrade
+```
+
+This will run the migration script which was generated in the previous step and that script will apply migrations on the database.
+
 ## Documentation
 
 Documentation for the project is hosted [here](https://anitab-org.github.io/mentorship-backend/). We use Docusaurus for maintaining the documentation of the project.
