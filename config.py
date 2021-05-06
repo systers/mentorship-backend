@@ -46,7 +46,7 @@ class BaseConfig(object):
     UNVERIFIED_USER_THRESHOLD = 2592000  # 30 days
 
     # Flask JWT settings
-    JWT_ACCESS_TOKEN_EXPIRES = timedelta(weeks=1)
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=10)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(weeks=4)
 
     # Security
