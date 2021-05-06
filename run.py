@@ -1,15 +1,18 @@
 from flask import Flask
 from config import get_env_config
 from flask_migrate import Migrate
+from app.rate_limiter import limiter, rate_limit_exceeded
 
 
 def create_app(config_filename: str) -> Flask:
     app = Flask(__name__)
-
+    # initialize flask limiter
+    limiter.init_app(app)
     # setup application environment
     app.config.from_object(config_filename)
     app.url_map.strict_slashes = False
-
+    # error handler for when rate limit is exceeded
+    app.register_error_handler(429, rate_limit_exceeded)
     from app.database.sqlalchemy_extension import db
 
     db.init_app(app)

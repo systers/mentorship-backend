@@ -3,6 +3,8 @@ from flask_restx import Resource, Namespace, marshal
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from http import HTTPStatus
 
+from app import rate_limits
+from app.rate_limiter import limiter
 from app import messages
 from app.api.dao.task import TaskDAO
 from app.api.resources.common import auth_header_parser
@@ -18,6 +20,8 @@ add_models_to_namespace(task_ns)
 
 @task_ns.route("mentorship_relation/<int:request_id>/task")
 class CreateTask(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @task_ns.doc("create_task_in_mentorship_relation")
@@ -74,6 +78,8 @@ class CreateTask(Resource):
 
 @task_ns.route("mentorship_relation/<int:request_id>/task/<int:task_id>")
 class DeleteTask(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @task_ns.doc("delete_task_in_mentorship_relation")
@@ -118,6 +124,8 @@ class DeleteTask(Resource):
 
 @task_ns.route("mentorship_relation/<int:request_id>/tasks")
 class ListTasks(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @task_ns.doc("list_tasks_in_mentorship_relation")
@@ -166,6 +174,8 @@ class ListTasks(Resource):
 
 @task_ns.route("mentorship_relation/<int:request_id>/task/<int:task_id>/complete")
 class UpdateTask(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @task_ns.doc("update_task_in_mentorship_relation")

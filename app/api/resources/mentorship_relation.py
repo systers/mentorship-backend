@@ -3,6 +3,8 @@ from flask_restx import Resource, Namespace, marshal
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from http import HTTPStatus
 
+from app import rate_limits
+from app.rate_limiter import limiter
 from app import messages
 from app.api.resources.common import auth_header_parser
 from app.api.dao.mentorship_relation import MentorshipRelationDAO
@@ -24,6 +26,8 @@ userDAO = UserDAO()
 
 @mentorship_relation_ns.route("mentorship_relation/send_request")
 class SendRequest(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @mentorship_relation_ns.doc("send_request")
@@ -121,6 +125,8 @@ class SendRequest(Resource):
 
 @mentorship_relation_ns.route("mentorship_relations")
 class GetAllMyMentorshipRelation(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @mentorship_relation_ns.doc("get_all_user_mentorship_relations")
@@ -173,6 +179,8 @@ class GetAllMyMentorshipRelation(Resource):
 
 @mentorship_relation_ns.route("mentorship_relation/<int:request_id>/accept")
 class AcceptMentorshipRelation(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @mentorship_relation_ns.doc("accept_mentorship_relation")
@@ -222,6 +230,8 @@ class AcceptMentorshipRelation(Resource):
 
 @mentorship_relation_ns.route("mentorship_relation/<int:request_id>/reject")
 class RejectMentorshipRelation(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @mentorship_relation_ns.doc("reject_mentorship_relation")
@@ -266,6 +276,8 @@ class RejectMentorshipRelation(Resource):
 
 @mentorship_relation_ns.route("mentorship_relation/<int:request_id>/cancel")
 class CancelMentorshipRelation(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @mentorship_relation_ns.doc("cancel_mentorship_relation")
@@ -309,6 +321,8 @@ class CancelMentorshipRelation(Resource):
 
 @mentorship_relation_ns.route("mentorship_relation/<int:request_id>")
 class DeleteMentorshipRelation(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @mentorship_relation_ns.doc("delete_mentorship_relation")
@@ -352,6 +366,8 @@ class DeleteMentorshipRelation(Resource):
 
 @mentorship_relation_ns.route("mentorship_relations/past")
 class ListPastMentorshipRelations(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @mentorship_relation_ns.doc("get_past_mentorship_relations")
@@ -391,6 +407,8 @@ class ListPastMentorshipRelations(Resource):
 
 @mentorship_relation_ns.route("mentorship_relations/current")
 class ListCurrentMentorshipRelation(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @mentorship_relation_ns.doc("get_current_mentorship_relation")
@@ -431,6 +449,8 @@ class ListCurrentMentorshipRelation(Resource):
 
 @mentorship_relation_ns.route("mentorship_relations/pending")
 class ListPendingMentorshipRequests(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @mentorship_relation_ns.doc("get_pending_mentorship_relations")

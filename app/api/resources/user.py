@@ -10,6 +10,8 @@ from flask_jwt_extended import (
 )
 from flask_restx import Resource, marshal, Namespace
 
+from app.rate_limiter import limiter
+from app import rate_limits
 from app import messages
 from app.api.validations.user import *
 from app.api.email_utils import send_email_verification_message
@@ -32,6 +34,8 @@ DAO = UserDAO()  # User data access object
 )
 # TODO: @users_ns.response(404, 'User does not exist.')
 class UserList(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @users_ns.doc(
@@ -81,6 +85,8 @@ class UserList(Resource):
 @users_ns.route("users/<int:user_id>")
 @users_ns.param("user_id", "The user identifier")
 class OtherUser(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @users_ns.doc("get_user")
@@ -120,6 +126,8 @@ class OtherUser(Resource):
 )
 @users_ns.response(HTTPStatus.NOT_FOUND.value, f"{messages.USER_DOES_NOT_EXIST}")
 class MyUserProfile(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @users_ns.doc("get_user")
@@ -206,6 +214,8 @@ class MyUserProfile(Resource):
 )
 @users_ns.route("user/change_password")
 class ChangeUserPassword(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @users_ns.doc("update_user_password")
@@ -236,6 +246,8 @@ class ChangeUserPassword(Resource):
 )
 @users_ns.route("users/verified")
 class VerifiedUser(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @users_ns.doc(
@@ -286,6 +298,8 @@ class VerifiedUser(Resource):
 
 @users_ns.route("register")
 class UserRegister(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @users_ns.doc("create_user")
     @users_ns.response(
@@ -349,6 +363,8 @@ class UserRegister(Resource):
 )
 @users_ns.param("token", "Token sent to the user's email")
 class UserEmailConfirmation(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     def get(cls, token):
         """Confirms the user's account.
@@ -372,6 +388,8 @@ class UserEmailConfirmation(Resource):
     HTTPStatus.NOT_FOUND.value, f"{messages.USER_IS_NOT_REGISTERED_IN_THE_SYSTEM}"
 )
 class UserResendEmailConfirmation(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @users_ns.expect(resend_email_request_body_model)
     def post(cls):
@@ -403,6 +421,8 @@ class UserResendEmailConfirmation(Resource):
 
 @users_ns.route("refresh")
 class RefreshUser(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_refresh_token_required
     @users_ns.doc("refresh")
@@ -435,6 +455,8 @@ class RefreshUser(Resource):
 
 @users_ns.route("login")
 class LoginUser(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @users_ns.doc("login")
     @users_ns.response(
@@ -510,6 +532,8 @@ class LoginUser(Resource):
 )
 @users_ns.response(HTTPStatus.NOT_FOUND.value, f"{messages.USER_NOT_FOUND}")
 class UserHomeStatistics(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @users_ns.expect(auth_header_parser)
@@ -537,6 +561,8 @@ class UserHomeStatistics(Resource):
 )
 @users_ns.response(HTTPStatus.NOT_FOUND.value, f"{messages.USER_NOT_FOUND}")
 class UserDashboard(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @users_ns.expect(auth_header_parser)

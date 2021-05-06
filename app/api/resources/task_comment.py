@@ -2,6 +2,8 @@ from flask import request
 from flask_restx import Resource, Namespace, marshal
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from http import HTTPStatus
+from app import rate_limits
+from app.rate_limiter import limiter
 from app import messages
 from app.api.resources.common import auth_header_parser
 
@@ -20,6 +22,8 @@ add_models_to_namespace(task_comment_ns)
     "mentorship_relation/<int:relation_id>/task/<int:task_id>/comment"
 )
 class CreateTaskComment(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @task_comment_ns.expect(auth_header_parser, task_comment_model)
@@ -60,6 +64,8 @@ class CreateTaskComment(Resource):
     "mentorship_relation/<int:relation_id>/task/<int:task_id>/comment/<int:comment_id>"
 )
 class TaskComment(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @task_comment_ns.expect(auth_header_parser, task_comment_model)
@@ -131,6 +137,8 @@ class TaskComment(Resource):
     "mentorship_relation/<int:relation_id>/task/<int:task_id>/comments/"
 )
 class TaskComments(Resource):
+    decorators = [limiter.limit(rate_limits.LIMIT_1)]
+
     @classmethod
     @jwt_required
     @task_comment_ns.expect(auth_header_parser)

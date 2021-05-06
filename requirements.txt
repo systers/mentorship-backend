@@ -6,6 +6,7 @@ Flask-Mail==0.9.1
 Flask-Migrate==2.5.3
 flask-restx==0.2.0
 Flask-Testing==0.8.0
+Flask-Limiter==1.4
 gunicorn==20.0.4
 psycopg2-binary==2.8.6
 python-dotenv==0.14.0
