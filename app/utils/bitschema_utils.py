@@ -597,3 +597,167 @@ class Timezone(Enum):
 
     def timezone(self):
         return list(map(str, self))
+
+
+# Enum related to personal background
+@unique
+class ProgramStatus(Enum):
+    DRAFT = "Draft"
+    OPEN = "Open"
+    IN_PROGRESS = "In_Progress"
+    COMPLETED = "Completed"
+    CLOSED = "Closed"
+
+    def programStatus(self):
+        return list(map(str, self))
+
+
+@unique
+class OrganizationStatus(Enum):
+    DRAFT = "Draft"
+    PUBLISH = "Publish"
+    ARCHIVED = "Archived"
+
+    def OrganizationStatus(self):
+        return list(map(str, self))
+
+
+@unique
+class Gender(Enum):
+    FEMALE = "Female"
+    MALE = "Male"
+    OTHER = "Other"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def gender(self):
+        return list(map(str, self))
+
+
+@unique
+class Age(Enum):
+    UNDER_18 = "Under 18"
+    AGE_18_TO_20 = "Between 18 to 20 yo"
+    AGE_21_TO_24 = "Between 21 to 24 yo"
+    AGE_25_TO_34 = "Between 25 to 34 yo"
+    AGE_35_TO_44 = "Between 35 to 44 yo"
+    AGE_45_TO_54 = "Between 45 to 54 yo"
+    AGE_55_TO_64 = "Between 55 to 64 yo"
+    ABOVE_65_YO = "Above 65 yo"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def age(self):
+        return list(map(str, self))
+
+
+@unique
+class Ethnicity(Enum):
+    AFRICAN_AMERICAN = "African-American/Black"
+    CAUCASIAN = "Caucasian/White"
+    HISPANIC = "Hispanic/Latinx"
+    NATIVE_AMERICAN = "Native American/Alaska Native/First Nations"
+    MIDDLE_EASTERN = "Middle Eastern/North African (MENA)"
+    ASIAN = "Asian"
+    OTHER = "Other"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def ethnicity(self):
+        return list(map(str, self))
+
+
+@unique
+class SexualOrientation(Enum):
+    HETEROSEXUAL = "Heterosexual/Straight"
+    LGBTQIA = "LGBTQIA+"
+    OTHER = "Other"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def sexualOrientation(self):
+        return list(map(str, self))
+
+
+@unique
+class Religion(Enum):
+    CHRISTIANITY = "Christianity"
+    JUDAISM = "Judaism"
+    ISLAM = "Islam"
+    HINDUISM = "Hinduism"
+    BUDDHISM = "Buddhism"
+    OTHER = "Other"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def religion(self):
+        return list(map(str, self))
+
+
+@unique
+class PhysicalAbility(Enum):
+    WITH_DISABILITY = "With/had limited physical ability (or with/had some type of physical disability/ies)"
+    WITHOUT_DISABILITY = "Without/have no limitation to physical ability/ies"
+    OTHER = "Other"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def physicalAbility(self):
+        return list(map(str, self))
+
+
+@unique
+class MentalAbility(Enum):
+    WITH_DISORDER = "With/previously had some type of mental disorders"
+    WITHOUT_DISORDER = "Without/have no mental disorders"
+    OTHER = "Other"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def mentalAbility(self):
+        return list(map(str, self))
+
+
+@unique
+class SocioEconomic(Enum):
+    UPPER = "Upper class/Elite"
+    UPPER_MIDDLE = "Upper Middle class (or High-level Professionals/white collars e.g. enginers/accountants/lawyers/architects/managers/directors"
+    LOWER_MIDDLE = "Lower Middle class (e.g. blue collars in skilled trades/Paralegals/Bank tellers/Sales/Clerical-Admin/other support workers)"
+    WORKING = "Working class (e.g. craft workers factory labourers restaurant/delivery services workers"
+    BELOW_POVERTY = "Underclass working but with wages under poverty line receiving Social Benefit from Government"
+    OTHER = "Other"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def socioEconomic(self):
+        return list(map(str, self))
+
+
+@unique
+class HighestEducation(Enum):
+    BELOW_HIGH_SCHOOL = "Have/did not completed High School"
+    HIGH_SCHOOL = "High School Diploma"
+    ASSOCIATE = "Associate Degree"
+    BACHELOR = "Bachelor's Degree"
+    MASTER = "Master's Degree"
+    PHD = "PhD or other Doctorate Degrees"
+    OTHER = "Other"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def highestEducation(self):
+        return list(map(str, self))
+
+
+@unique
+class YearsOfExperience(Enum):
+    UNDER_ONE = "Less than a year"
+    UP_TO_3 = "Between 1 to 3 years"
+    UP_TO_5 = "Between 3 to 5 years"
+    UP_TO_10 = "Between 5 to 10 year"
+    OVER_10 = "Over 10 years of experience"
+    DECLINED = "Prefer not to say"
+    NOT_APPLICABLE = "Not Applicable"
+
+    def yearsOfExperience(self):
+        return list(map(str, self))
