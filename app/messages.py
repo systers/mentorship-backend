@@ -84,6 +84,7 @@ MENTOR_NOT_AVAILABLE_TO_MENTOR = {
 }
 MENTOR_ALREADY_IN_A_RELATION = {"message": "Mentor user is already in a relationship."}
 
+
 # Mentee availability
 MENTEE_NOT_AVAIL_TO_BE_MENTORED = {
     "message": "Mentee user is not available" " to be mentored."
@@ -186,6 +187,12 @@ UNACCEPTED_STATE_RELATION = {
 }
 MENTORSHIP_RELATION_NOT_IN_ACCEPT_STATE = {
     "message": "Mentorship relation is" " not in the accepted state."
+}
+RELATION_REQUEST_ALREADY_PENDING = {
+    "message": "Mentorship request already has been sent already and is pending. "
+}
+RELATION_REQUEST_ALREADY_ACCEPTED = {
+    "message": "This Mentorship request was accepted. "
 }
 
 # Login errors
