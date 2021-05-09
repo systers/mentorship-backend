@@ -26,7 +26,7 @@ class TestUserChangePasswordApi(BaseTestCase):
         super().setUp()
         self.first_user = UserModel(
             password=user1["password"],
-            name="User1",
+            name="User",
             email="user1@email.com",
             username="user_not_admin",
             terms_and_conditions_checked=True,

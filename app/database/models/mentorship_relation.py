@@ -3,6 +3,7 @@ from datetime import date
 from app.database.models.tasks_list import TasksListModel
 from app.database.models.user import UserModel
 from app.database.sqlalchemy_extension import db
+from sqlalchemy.orm import validates
 from app.utils.enum_utils import MentorshipRelationState
 
 
@@ -123,3 +124,11 @@ class MentorshipRelationModel(db.Model):
         self.tasks_list.delete_from_db()
         db.session.delete(self)
         db.session.commit()
+
+    @validates("notes")
+    def validate(self, key, value):
+        if key == "notes":
+            if value is not None:
+                value = str(value).strip()
+                assert len(value.strip()) > 2
+        return value

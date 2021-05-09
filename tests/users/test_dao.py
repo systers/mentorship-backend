@@ -18,7 +18,7 @@ class TestUserDao(BaseTestCase):
     def test_dao_create_user(self):
         dao = UserDAO()
         data = dict(
-            name="User2",
+            name="UserB",
             username="user2",
             email="user2@email.com",
             password="test_password",
@@ -30,7 +30,7 @@ class TestUserDao(BaseTestCase):
         user = UserModel.query.filter_by(email="user2@email.com").first()
         self.assertTrue(user is not None)
         self.assertTrue(user.id is not None)
-        self.assertTrue(user.name == "User2")
+        self.assertTrue(user.name == "UserB")
         self.assertTrue(user.username == "user2")
         self.assertTrue(user.email == "user2@email.com")
         self.assertFalse(user.is_admin)

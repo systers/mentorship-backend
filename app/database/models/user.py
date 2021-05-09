@@ -1,6 +1,14 @@
-from werkzeug.security import generate_password_hash, check_password_hash
 import time
+
+from sqlalchemy.orm import validates
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from app.database.sqlalchemy_extension import db
+from app.utils.validation_utils import (
+    is_name_valid,
+    is_email_valid,
+    is_username_valid,
+)
 
 
 class UserModel(db.Model):
@@ -155,3 +163,15 @@ class UserModel(db.Model):
         """Deletes a user from the database."""
         db.session.delete(self)
         db.session.commit()
+
+    @validates("username", "name", "email", "terms_and_conditions_checked")
+    def validate(self, key, value):
+        if key == "username":
+            assert is_username_valid(value)
+        elif key == "name":
+            assert is_name_valid(value)
+        elif key == "email":
+            assert is_email_valid(value)
+        elif key == "terms_and_conditions_checked":
+            assert value is True
+        return value

@@ -150,6 +150,20 @@ class TestMentorshipRelationModel(BaseTestCase):
         db.session.commit()
         self.assertTrue(MentorshipRelationModel.is_empty())
 
+    def test__validations_comment(self):
+        self.assertRaises(
+            AssertionError,
+            MentorshipRelationModel,
+            action_user_id=self.first_user.id,
+            mentor_user=self.first_user,
+            mentee_user=self.second_user,
+            creation_date=self.now_datetime,
+            end_date=self.end_date_example,
+            state=MentorshipRelationState.PENDING,
+            notes=" s ",
+            tasks_list=TasksListModel(),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

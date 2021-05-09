@@ -7,7 +7,7 @@ test_admin_user = {
 }
 
 test_admin_user_2 = {
-    "name": "Admin_2",
+    "name": "Adminb",
     "email": "admin2@email.com",
     "username": "admin2_username",
     "password": "admin2_pwd",
@@ -15,7 +15,7 @@ test_admin_user_2 = {
 }
 
 test_admin_user_3 = {
-    "name": "Admin_3",
+    "name": "Adminc",
     "email": "admin3@email.com",
     "username": "admin3_username",
     "password": "admin3_pwd",
@@ -42,7 +42,7 @@ user2 = {
 }
 
 user3 = {
-    "name": "s_t-r$a/n'ge   name",
+    "name": "strange  name",
     "email": "user3@email.com",
     "username": "user3",
     "password": "user3_pwd",
@@ -50,7 +50,7 @@ user3 = {
 }
 
 user4 = {
-    "name": "user4@email.com",
+    "name": "userc",
     "email": "user4@email.com",
     "username": "user4",
     "password": "user4_pwd",
@@ -58,7 +58,7 @@ user4 = {
 }
 
 user5 = {
-    "name": "user5@email.com",
+    "name": "userd",
     "email": "user5@email.com",
     "username": "user5",
     "password": "user5_pwd",

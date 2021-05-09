@@ -124,11 +124,12 @@ class TestListUsersApi(BaseTestCase):
         self.assertEqual(HTTPStatus.OK, actual_response.status_code)
         self.assertEqual(expected_response, json.loads(actual_response.data))
 
+    # invalid test case
     def test_list_users_api_with_search_with_special_characters_resource_auth(self):
         auth_header = get_test_request_header(self.admin_user.id)
         expected_response = [marshal(self.second_user, public_user_api_model)]
         actual_response = self.client.get(
-            f"/users?search=s_t-r%24a%2Fn'ge",
+            f"/users?search=strange%20%20name",
             follow_redirects=True,
             headers=auth_header,
         )

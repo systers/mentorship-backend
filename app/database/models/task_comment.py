@@ -2,6 +2,7 @@ from datetime import datetime
 
 from app.api.validations.task_comment import COMMENT_MAX_LENGTH
 from app.database.sqlalchemy_extension import db
+from sqlalchemy.orm import validates
 
 
 class TaskCommentModel(db.Model):
@@ -105,3 +106,11 @@ class TaskCommentModel(db.Model):
         """Deletes a comment task from the database."""
         db.session.delete(self)
         db.session.commit()
+
+    @validates("comment")
+    def validate(self, key, value):
+        if key == "comment":
+            assert value is not None
+            value = str(value).strip()
+            assert len(value) > 2
+        return value

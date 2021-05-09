@@ -15,8 +15,8 @@ class TestHomeStatisticsApi(BaseTestCase):
     def setUp(self):
         super().setUp()
 
-        self.user1 = UserModel("User1", "user1", "__test__", "test@email.com", True)
-        self.user2 = UserModel("User2", "user2", "__test__", "test2@email.com", True)
+        self.user1 = UserModel("UserA", "user1", "__test__", "test@email.com", True)
+        self.user2 = UserModel("UserB", "user2", "__test__", "test2@email.com", True)
         self.user1.available_to_mentor = True
         self.user1.is_email_verified = True
         self.user2.need_mentoring = True
@@ -56,14 +56,14 @@ class TestHomeStatisticsApi(BaseTestCase):
             creation_date=start_date,
             end_date=end_date,
             state=MentorshipRelationState.PENDING,
-            notes="",
+            notes=None,
             tasks_list=tasks_list,
         )
 
         db.session.add(mentorship_relation)
         db.session.commit()
         expected_response = {
-            "name": "User1",
+            "name": "UserA",
             "pending_requests": 1,
             "accepted_requests": 0,
             "rejected_requests": 0,
@@ -92,14 +92,14 @@ class TestHomeStatisticsApi(BaseTestCase):
             creation_date=start_date,
             end_date=end_date,
             state=MentorshipRelationState.ACCEPTED,
-            notes="",
+            notes=None,
             tasks_list=tasks_list,
         )
 
         db.session.add(mentorship_relation)
         db.session.commit()
         expected_response = {
-            "name": "User1",
+            "name": "UserA",
             "pending_requests": 0,
             "accepted_requests": 1,
             "rejected_requests": 0,
@@ -128,14 +128,14 @@ class TestHomeStatisticsApi(BaseTestCase):
             creation_date=start_date,
             end_date=end_date,
             state=MentorshipRelationState.REJECTED,
-            notes="",
+            notes=None,
             tasks_list=tasks_list,
         )
 
         db.session.add(mentorship_relation)
         db.session.commit()
         expected_response = {
-            "name": "User1",
+            "name": "UserA",
             "pending_requests": 0,
             "accepted_requests": 0,
             "rejected_requests": 1,
@@ -164,14 +164,14 @@ class TestHomeStatisticsApi(BaseTestCase):
             creation_date=start_date,
             end_date=end_date,
             state=MentorshipRelationState.COMPLETED,
-            notes="",
+            notes=None,
             tasks_list=tasks_list,
         )
 
         db.session.add(mentorship_relation)
         db.session.commit()
         expected_response = {
-            "name": "User1",
+            "name": "UserA",
             "pending_requests": 0,
             "accepted_requests": 0,
             "rejected_requests": 0,
@@ -199,14 +199,14 @@ class TestHomeStatisticsApi(BaseTestCase):
             creation_date=start_date,
             end_date=end_date,
             state=MentorshipRelationState.CANCELLED,
-            notes="",
+            notes=None,
             tasks_list=tasks_list,
         )
 
         db.session.add(mentorship_relation)
         db.session.commit()
         expected_response = {
-            "name": "User1",
+            "name": "UserA",
             "pending_requests": 0,
             "accepted_requests": 0,
             "rejected_requests": 0,
@@ -253,7 +253,7 @@ class TestHomeStatisticsApi(BaseTestCase):
             creation_date=start_date,
             end_date=end_date,
             state=MentorshipRelationState.ACCEPTED,
-            notes="",
+            notes=None,
             tasks_list=tasks_list,
         )
 
@@ -261,7 +261,7 @@ class TestHomeStatisticsApi(BaseTestCase):
         db.session.commit()
 
         expected_response = {
-            "name": "User1",
+            "name": "UserA",
             "pending_requests": 0,
             "accepted_requests": 1,
             "rejected_requests": 0,
